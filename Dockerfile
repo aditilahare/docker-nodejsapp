@@ -1,9 +1,11 @@
 FROM node:8
 
-COPY package.*json /
+WORKDIR /src/app
+
+COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY . ./
 
 CMD ["npm","start"]
