@@ -23,11 +23,7 @@ repositories {
 }
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.boot:spring-boot-starter-actuator")
-//	testCompile("org.springframework.boot:spring-boot-starter-test")
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-
-//bootRun {
-//	systemProperty "spring.profiles.active", "test,qa,ect"
-//}
