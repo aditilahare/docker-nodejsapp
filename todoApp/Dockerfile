@@ -1,7 +1,27 @@
-FROM gradle:jre-alpine
+FROM openjdk:8 AS BUILD_IMAGE
 
-WORKDIR /src/app
+ENV APP_HOME=/todoApp/
 
-COPY /build/libs/todoApp-0.0.1-SNAPSHOT.jar HelloWorld.jar
+# RUN mkdir -p $APP_HOME/src/main/java
 
-CMD ["java", "-jar", "HelloWorld.jar"]
+WORKDIR $APP_HOME
+
+COPY build.gradle gradlew $APP_HOME/
+
+COPY gradle $APP_HOME/gradle
+
+# RUN ./gradle build
+
+COPY . .
+
+RUN ./gradlew build
+
+FROM openjdk:8-jre
+
+WORKDIR /src/todoApp/
+
+COPY --from=BUILD_IMAGE /todoApp/build/libs/todoApp.jar .
+
+COPY --from=BUILD_IMAGE /todoApp/src/main/resources/static/todo.json .
+
+CMD ["java","-jar","todoApp.jar"]
