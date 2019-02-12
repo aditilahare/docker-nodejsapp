@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  nodeapp:
+    build: ./nodeApp
+    ports:
+      - "3000:3000"
+
+  todoapp:
+    build: ./todoApp
+    # ports:
+    #   - "8080:8080"
