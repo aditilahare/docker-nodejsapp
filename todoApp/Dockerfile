@@ -1,16 +1,10 @@
 FROM openjdk:8 AS BUILD_IMAGE
 
-ENV APP_HOME=/todoApp/
+WORKDIR /todoApp
 
-# RUN mkdir -p $APP_HOME/src/main/java
+COPY build.gradle gradlew /todoApp/
 
-WORKDIR $APP_HOME
-
-COPY build.gradle gradlew $APP_HOME/
-
-COPY gradle $APP_HOME/gradle
-
-# RUN ./gradle build
+COPY gradle /todoApp/gradle
 
 COPY . .
 
@@ -18,7 +12,7 @@ RUN ./gradlew build
 
 FROM openjdk:8-jre
 
-WORKDIR /src/todoApp/
+WORKDIR /todoApp/
 
 COPY --from=BUILD_IMAGE /todoApp/build/libs/todoApp.jar .
 

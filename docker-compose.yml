@@ -8,5 +8,5 @@ services:
 
   todoapp:
     build: ./todoApp
-    # ports:
-    #   - "8080:8080"
+    volumes:
+      - "./todoApp/src/main/resources/static/todo.json:/todoApp/todo.json"
